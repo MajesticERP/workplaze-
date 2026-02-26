@@ -1,0 +1,22 @@
+{
+  "name": "Workplaze",
+  "short_name": "Workplaze",
+  "description": "ระบบบันทึกเวลาทำงาน",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#4361ee",
+  "theme_color": "#4361ee",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://ui-avatars.com/api/?name=W&background=4361ee&color=fff&size=192&bold=true&rounded=true",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://ui-avatars.com/api/?name=W&background=4361ee&color=fff&size=512&bold=true&rounded=true",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

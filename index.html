@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#4361ee">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Workplaze">
+  <link rel="manifest" href="manifest.json">
+  <title>Workplaze</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #4361ee; }
+    #app-frame {
+      width: 100%;
+      height: 100vh;
+      border: none;
+      display: block;
+    }
+    #splash {
+      position: fixed; inset: 0;
+      background: linear-gradient(135deg, #4361ee, #4cc9f0);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 16px; z-index: 999;
+      transition: opacity .4s ease;
+    }
+    #splash .icon {
+      width: 80px; height: 80px;
+      background: rgba(255,255,255,.2);
+      border-radius: 24px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem;
+    }
+    #splash h1 { color: #fff; font-family: sans-serif; font-size: 1.5rem; font-weight: 700; }
+    #splash p  { color: rgba(255,255,255,.75); font-family: sans-serif; font-size: .9rem; }
+    .dot-loader { display: flex; gap: 6px; margin-top: 8px; }
+    .dot-loader span {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255,255,255,.6);
+      animation: bounce .9s infinite alternate;
+    }
+    .dot-loader span:nth-child(2) { animation-delay: .2s; }
+    .dot-loader span:nth-child(3) { animation-delay: .4s; }
+    @keyframes bounce { to { transform: translateY(-8px); background: #fff; } }
+  </style>
+</head>
+<body>
+
+  <!-- Splash screen while GAS loads -->
+  <div id="splash">
+    <div class="icon">⚡</div>
+    <h1>Workplaze</h1>
+    <p>ระบบบันทึกเวลาทำงาน</p>
+    <div class="dot-loader"><span></span><span></span><span></span></div>
+  </div>
+
+  <!-- GAS App embedded — banner hidden completely -->
+  <iframe
+    id="app-frame"
+    src="YOUR_GAS_WEBAPP_URL_HERE"
+    allow="geolocation; camera; microphone; clipboard-write"
+    allowfullscreen
+    onload="hideSplash()">
+  </iframe>
+
+  <script>
+    function hideSplash() {
+      const s = document.getElementById('splash');
+      s.style.opacity = '0';
+      setTimeout(() => s.style.display = 'none', 400);
+    }
+    // Fallback: hide splash after 10s if iframe doesn't trigger onload
+    setTimeout(hideSplash, 10000);
+  </script>
+</body>
+</html>
