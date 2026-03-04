@@ -57,6 +57,14 @@
     <div class="dot-loader"><span></span><span></span><span></span></div>
   </div>
 
+  <iframe
+    id="app-frame"
+    src="about:blank"
+    allow="geolocation; camera; microphone; clipboard-write"
+    allowfullscreen
+    onload="hideSplash()">
+  </iframe>
+
   <script>
     var GAS_URL = 'https://script.google.com/macros/s/AKfycbz1OE579seRlkmIfFVknIV-g-Q1TNhSaO0FgCaJF8Gi958qswtN2UuXu-1-dIOSOqVpLA/exec';
 
@@ -67,8 +75,8 @@
     }
 
     (function boot() {
-      // Redirect ไป GAS โดยตรง เพื่อให้กล้องสดทำงานเสถียรที่สุด
-      window.location.replace(GAS_URL);
+      // เปิดผ่าน iframe เพื่อซ่อนแถบ Google Apps Script
+      document.getElementById('app-frame').src = GAS_URL;
       setTimeout(hideSplash, 10000);
     })();
   </script>
