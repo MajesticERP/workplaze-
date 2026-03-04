@@ -57,15 +57,6 @@
     <div class="dot-loader"><span></span><span></span><span></span></div>
   </div>
 
-  <!-- GAS App embedded — banner hidden completely -->
-  <iframe
-    id="app-frame"
-    src="about:blank"
-    allow="geolocation; camera; microphone; clipboard-write"
-    allowfullscreen
-    onload="hideSplash()">
-  </iframe>
-
   <script>
     var GAS_URL = 'https://script.google.com/macros/s/AKfycbzCCoI63ZNCz2q1OQhziPFamvDBKfIe5pWfCcIO_dPqXFLapZRkB747yLpRrrHu3NpFng/exec';
 
@@ -76,9 +67,8 @@
     }
 
     (function boot() {
-      // เปิดผ่าน iframe ทุกอุปกรณ์เพื่อซ่อนคำว่า Google Apps Script
-      document.getElementById('app-frame').src = GAS_URL;
-      // Fallback: hide splash after 10s if iframe doesn't trigger onload
+      // Redirect ไป GAS โดยตรง เพื่อให้กล้องสดทำงานเสถียรที่สุด
+      window.location.replace(GAS_URL);
       setTimeout(hideSplash, 10000);
     })();
   </script>
