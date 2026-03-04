@@ -69,11 +69,6 @@
   <script>
     var GAS_URL = 'https://script.google.com/macros/s/AKfycby6kJS9bUVQPRHRJ4TF6yl4R8D9xMV4_-clXbK1wk-GEPoTUiJ3dZIGJ-tfwJZdHwYfNA/exec';
 
-    function isMobileDevice() {
-      var ua = navigator.userAgent || '';
-      return /Android|iPhone|iPad|iPod|Mobile/i.test(ua);
-    }
-
     function hideSplash() {
       var s = document.getElementById('splash');
       s.style.opacity = '0';
@@ -81,12 +76,7 @@
     }
 
     (function boot() {
-      if (isMobileDevice()) {
-        // บนมือถือ เปิด GAS ตรงเพื่อลดปัญหากล้องเด้งจาก iframe/PWA
-        window.location.replace(GAS_URL);
-        return;
-      }
-      // เดสก์ท็อปยังคงเปิดผ่าน iframe เพื่อ UI สะอาด
+      // เปิดผ่าน iframe ทุกอุปกรณ์เพื่อซ่อนคำว่า Google Apps Script
       document.getElementById('app-frame').src = GAS_URL;
       // Fallback: hide splash after 10s if iframe doesn't trigger onload
       setTimeout(hideSplash, 10000);
