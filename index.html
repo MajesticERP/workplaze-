@@ -60,20 +60,37 @@
   <!-- GAS App embedded — banner hidden completely -->
   <iframe
     id="app-frame"
-    src="https://script.google.com/macros/s/AKfycby4DBgwkr9THYUFrgBgPdEK2XF6rC_ca64yvipehud_eUbMTvuuhyXUbkapQxdR8RYa-A/exec"
+    src="about:blank"
     allow="geolocation; camera; microphone; clipboard-write"
     allowfullscreen
     onload="hideSplash()">
   </iframe>
 
   <script>
-    function hideSplash() {
-      const s = document.getElementById('splash');
-      s.style.opacity = '0';
-      setTimeout(() => s.style.display = 'none', 400);
+    var GAS_URL = 'https://script.google.com/macros/s/AKfycby4DBgwkr9THYUFrgBgPdEK2XF6rC_ca64yvipehud_eUbMTvuuhyXUbkapQxdR8RYa-A/exec';
+
+    function isMobileDevice() {
+      var ua = navigator.userAgent || '';
+      return /Android|iPhone|iPad|iPod|Mobile/i.test(ua);
     }
-    // Fallback: hide splash after 10s if iframe doesn't trigger onload
-    setTimeout(hideSplash, 10000);
+
+    function hideSplash() {
+      var s = document.getElementById('splash');
+      s.style.opacity = '0';
+      setTimeout(function() { s.style.display = 'none'; }, 400);
+    }
+
+    (function boot() {
+      if (isMobileDevice()) {
+        // บนมือถือ เปิด GAS ตรงเพื่อลดปัญหากล้องเด้งจาก iframe/PWA
+        window.location.replace(GAS_URL);
+        return;
+      }
+      // เดสก์ท็อปยังคงเปิดผ่าน iframe เพื่อ UI สะอาด
+      document.getElementById('app-frame').src = GAS_URL;
+      // Fallback: hide splash after 10s if iframe doesn't trigger onload
+      setTimeout(hideSplash, 10000);
+    })();
   </script>
 </body>
 </html>
